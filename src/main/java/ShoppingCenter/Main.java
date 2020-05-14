@@ -1,5 +1,6 @@
 package ShoppingCenter;
 
+import ShoppingCenter.Services.UserService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,6 +19,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        UserService.loadClientsFromFile();
+        UserService.loadManagersFromFile();
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("login.fxml")));
         primaryStage.setTitle("SEF - Shopping Center");
