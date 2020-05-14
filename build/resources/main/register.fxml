@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
@@ -12,7 +13,7 @@
                 <Font name="Arial Bold Italic" size="15.0" />
             </font>
         </Label>
-        <Text fx:id="LoginMessage" layoutX="404.0" layoutY="300.0" wrappingWidth="140.33495825529099" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+        <Text fx:id="LoginMessage" layoutX="414.0" layoutY="291.0" wrappingWidth="140.33495825529099" GridPane.columnIndex="1" GridPane.rowIndex="7" />
         <Label layoutX="243.0" layoutY="55.0" text="REGISTRATION">
             <font>
                 <Font name="Arial Bold Italic" size="15.0" />
@@ -73,5 +74,8 @@
             <effect>
                 <DropShadow height="23.97" radius="12.225" width="26.93" />
             </effect></Button>
+        <ImageView fitHeight="101.0" fitWidth="113.0" layoutX="442.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@register-icon-9.png" />
+        </ImageView>
     </children>
 </Pane>
