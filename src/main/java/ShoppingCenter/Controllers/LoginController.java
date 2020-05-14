@@ -1,5 +1,7 @@
 package ShoppingCenter.Controllers;
 
+import ShoppingCenter.Model.Client;
+import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,16 +10,16 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import ShoppingCenter.Exceptions.UsernameAlreadyExistsException;
+import ShoppingCenter.Services.UserService;
 import javafx.stage.Stage;
 
-
+import java.io.IOException;
 import java.util.Objects;
-import ShoppingCenter.Services.UserService;
 
-import static ShoppingCenter.Services.UserService.verifyClient;
-import static ShoppingCenter.Services.UserService.verifyManager;
+import static ShoppingCenter.Services.UserService.clients;
 
-public class LoginController {
+public class LoginController< choice > {
 
     @FXML
     private Text LoginMessage;
@@ -35,12 +37,20 @@ public class LoginController {
     @FXML
     private String getChoice()
     {
-        return this.role.getValue();
+        String choice =this.role.getValue();
+        return choice;
     }
     @FXML
-    public void handleRegisterButtonAction()
+    public void handleRegisterButtonAction() throws  IOException
     {
-
+        try {
+            Stage stage = (Stage) LoginMessage.getScene().getWindow();
+            Parent register = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("register.fxml")));
+            Scene scene = new Scene(register, 600, 400);
+            stage.setScene(scene);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     public void handleLoginButtonAction() {
@@ -48,33 +58,43 @@ public class LoginController {
         String password = passwordField.getText();
         String Role = role.getValue();
 
-        if (username == null || username.isEmpty()) {
+        if(username == null || username.isEmpty())
+        {
             LoginMessage.setText("Please type in a username!");
             return;
         }
-        if (password == null || password.isEmpty()) {
+        if(password == null || password.isEmpty())
+        {
             LoginMessage.setText("Please type in a password!");
             return;
         }
-        if (Role == null || Role.isEmpty()) {
+        if(Role == null ||Role.isEmpty())
+        {
             LoginMessage.setText("Please select a role!");
             return;
         }
+
+        if(getChoice().equals("Client"))
+        {
+            if(!UserService.verifyClient(username, password))
+            {
+                LoginMessage.setText("The credentials are invalid!");
+                return;
+            }
+        }
+        if(getChoice().equals("Manager"))
+        {
+            if(!UserService.verifyManager(username, password))
+            {
+                LoginMessage.setText("The credentials are invalid!");
+                return;
+            }
+        }
         try {
-            if (Role.equals("Client")) {
-                if (verifyClient(username, password)) {
-                    LoginMessage.setText("Login successfully!");
-                    return;
-                }
-            }
-            if (Role.equals("Manager")) {
-                if (verifyManager(username, password)) {
-                    LoginMessage.setText("Login successfully!");
-                    return;
-                }
-            }
-        } catch (Exception e) {
-            LoginMessage.setText("Login failed!");
+            LoginMessage.setText("Login successfully!");
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
