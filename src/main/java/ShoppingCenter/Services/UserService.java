@@ -1,6 +1,7 @@
 package ShoppingCenter.Services;
 
 import ShoppingCenter.Exceptions.CouldNotWriteUsersException;
+import ShoppingCenter.Exceptions.StoreAlreadyExistsException;
 import ShoppingCenter.Exceptions.UsernameAlreadyExistsException;
 
 import ShoppingCenter.Model.Client;
@@ -41,6 +42,83 @@ public class UserService {
         persistManagers();
     }
 
+    public static void modifyManager(String username, String password, String name, String number, String store) throws UsernameAlreadyExistsException, StoreAlreadyExistsException {
+        // verify if the username is available
+        if(!username.equals(current_manager)) {
+            for (Manager manager : managers) {
+                if (Objects.equals(username, manager.getUsername())) {
+                    checkManagerDoesNotAlreadyExist(username);
+                }
+            }
+        }
+        //make the modification
+        for (Manager manager : managers) {
+            if (Objects.equals(current_manager, manager.getUsername())) {
+                if(!username.isEmpty())
+                {
+                    manager.setUsername(username);
+                    current_manager = username;
+                }
+                if(!password.isEmpty())
+                {
+                    manager.setPassword(encodePassword(username, password));
+                }
+                if(!name.isEmpty())
+                {
+                    manager.setName(name);
+                }
+                if(!number.isEmpty())
+                {
+                    manager.setNumber(number);
+                }
+                if(!store.isEmpty() && !store.equals(manager.getStore_name()))
+                {
+                    checkStoreDoesNotAlreadyExist(store);
+                    manager.setStore_name(store);
+                }
+            }
+        }
+        persistManagers();
+    }
+    public static void modifyClient(String username, String password, String name, String number, String address) throws UsernameAlreadyExistsException {
+        // verify if the username is available
+        if(!username.equals(current_client)) {
+            for (Client client : clients) {
+                if (Objects.equals(username, client.getUsername())) {
+                    checkClientDoesNotAlreadyExist(username);
+                }
+            }
+        }
+        //make the modification
+        for (Client client : clients) {
+            if (Objects.equals(current_client, client.getUsername())) {
+                if(!username.isEmpty())
+                {
+                    client.setUsername(username);
+                    current_client = username;
+                }
+                if(!password.isEmpty())
+                {
+                    client.setPassword(encodePassword(username, password));
+                }
+                if(!name.isEmpty())
+                {
+                    client.setName(name);
+                }
+                if(!number.isEmpty())
+                {
+                    client.setNumber(number);
+                }
+                if(!address.isEmpty())
+                {
+                    client.setAddress(address);
+                }
+            }
+        }
+        persistClients();
+    }
+
+
     public static void loadClientsFromFile() throws IOException {
 
         if (!Files.exists(CLIENTS_PATH)) {
@@ -76,6 +154,13 @@ public class UserService {
         for (Manager manager : managers) {
             if (Objects.equals(username, manager.getUsername()))
                 throw new UsernameAlreadyExistsException(username);
+        }
+    }
+
+    public static void checkStoreDoesNotAlreadyExist(String store) throws StoreAlreadyExistsException {
+        for (Manager manager : managers) {
+            if (Objects.equals(store, manager.getStore_name()))
+                throw new StoreAlreadyExistsException(store);
         }
     }
 

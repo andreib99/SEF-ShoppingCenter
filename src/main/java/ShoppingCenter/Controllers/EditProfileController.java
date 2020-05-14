@@ -1,5 +1,7 @@
 package ShoppingCenter.Controllers;
 
+import ShoppingCenter.Exceptions.StoreAlreadyExistsException;
+import ShoppingCenter.Exceptions.UsernameAlreadyExistsException;
 import ShoppingCenter.Model.Client;
 import ShoppingCenter.Model.Manager;
 import ShoppingCenter.Services.UserService;
@@ -13,6 +15,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.Objects;
+
 
 public class EditProfileController {
 
@@ -31,9 +34,7 @@ public class EditProfileController {
     @FXML
     private TextField usernameField;
 
-
-    public void initialize()
-    {
+    public void initialize() {
         if(UserService.getCurrent_client().equals(""))
         {
             for(Manager manager : UserService.managers)
@@ -63,14 +64,34 @@ public class EditProfileController {
                 }
             }
         }
+
     }
 
     public void handleEditButtonAction() {
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+        String store = storeField.getText();
+        String number = numberField.getText();
+        String address = addressField.getText();
+        String name = nameField.getText();
 
+        try {
+            if (UserService.getCurrent_manager().equals("")) {
+                UserService.modifyClient(username, password, name, number, address);
+            }
+            if (UserService.getCurrent_client().equals("")) {
+                UserService.modifyManager(username, password, name, number, store);
+            }
+            EditMessage.setText("Successfully modified!");
 
+        }catch(UsernameAlreadyExistsException | StoreAlreadyExistsException e)
+        {
+            EditMessage.setText(e.getMessage());
+        }
     }
 
-    public void handleViewStoresButtonAction() {
+    public void handleViewStoresButtonAction()
+    {
         try {
             Stage stage = (Stage) EditMessage.getScene().getWindow();
             Parent store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("view_stores.fxml")));
@@ -80,4 +101,9 @@ public class EditProfileController {
             e.printStackTrace();
         }
     }
+
+
+
+
+
 }
