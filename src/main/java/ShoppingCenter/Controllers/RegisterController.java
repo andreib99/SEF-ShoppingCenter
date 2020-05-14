@@ -54,7 +54,6 @@ public class RegisterController< choice > {
 
         try {
             if(getChoice().equals("Manager")) {
-                System.out.println("Hei");
                 UserService.addManager(usernameField.getText(), passwordField.getText()
                         ,nameField.getText(),numberField.getText(),storeField.getText() );
             }

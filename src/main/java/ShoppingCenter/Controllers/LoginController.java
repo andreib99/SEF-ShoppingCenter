@@ -92,7 +92,14 @@ public class LoginController< choice > {
         }
         try {
             LoginMessage.setText("Login successfully!");
-
+            try {
+                Stage stage = (Stage) LoginMessage.getScene().getWindow();
+                Parent store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("view_stores.fxml")));
+                Scene scene = new Scene(store);
+                stage.setScene(scene);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
