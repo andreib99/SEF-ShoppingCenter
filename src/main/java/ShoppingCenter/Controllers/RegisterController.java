@@ -14,6 +14,9 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
+import static ShoppingCenter.Services.UserService.setCurrent_client;
+import static ShoppingCenter.Services.UserService.setCurrent_manager;
+
 public class RegisterController< choice > {
     @FXML
     private Text LoginMessage;
@@ -46,6 +49,14 @@ public class RegisterController< choice > {
     @FXML
     public void handleSigningButtonAction()
     {
+        String username = usernameField.getText();
+        String name = nameField.getText();
+        String number = numberField.getText();
+        String password = passwordField.getText();
+        String address = addressField.getText();
+        String store = storeField.getText();
+
+
         if(role.getValue()==null)
         {
             LoginMessage.setText("Need to select a role!");
@@ -54,16 +65,24 @@ public class RegisterController< choice > {
 
         try {
             if(getChoice().equals("Manager")) {
-                UserService.addManager(usernameField.getText(), passwordField.getText()
-                        ,nameField.getText(),numberField.getText(),storeField.getText() );
+                setCurrent_manager(username);
+                setCurrent_client("");
+                UserService.addManager(username, password, name, number, store);
             }
             if(getChoice().equals("Client")) {
-                UserService.addClient(usernameField.getText(), passwordField.getText()
-                        ,nameField.getText(),numberField.getText(),addressField.getText());
+                setCurrent_client(username);
+                setCurrent_manager("");
+                UserService.addClient(username, password , name, number, address);
             }
             LoginMessage.setText("Account created successfully!");
-        } catch (UsernameAlreadyExistsException e) {
+            Stage stage = (Stage) LoginMessage.getScene().getWindow();
+            Parent Store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("view_stores.fxml")));
+            Scene scene = new Scene(Store);
+            stage.setScene(scene);
+        } catch (UsernameAlreadyExistsException  e) {
             LoginMessage.setText(e.getMessage());
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 
