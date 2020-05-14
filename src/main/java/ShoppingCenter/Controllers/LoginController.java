@@ -12,6 +12,10 @@ import javafx.stage.Stage;
 
 
 import java.util.Objects;
+import ShoppingCenter.Services.UserService;
+
+import static ShoppingCenter.Services.UserService.verifyClient;
+import static ShoppingCenter.Services.UserService.verifyManager;
 
 public class LoginController {
 
@@ -31,8 +35,7 @@ public class LoginController {
     @FXML
     private String getChoice()
     {
-        String choice =this.role.getValue();
-        return choice;
+        return this.role.getValue();
     }
     @FXML
     public void handleRegisterButtonAction()
@@ -45,27 +48,33 @@ public class LoginController {
         String password = passwordField.getText();
         String Role = role.getValue();
 
-        if(username == null || username.isEmpty())
-        {
+        if (username == null || username.isEmpty()) {
             LoginMessage.setText("Please type in a username!");
             return;
         }
-        if(password == null || password.isEmpty())
-        {
+        if (password == null || password.isEmpty()) {
             LoginMessage.setText("Please type in a password!");
             return;
         }
-        if(Role == null ||Role.isEmpty())
-        {
+        if (Role == null || Role.isEmpty()) {
             LoginMessage.setText("Please select a role!");
             return;
         }
         try {
-
-            LoginMessage.setText("Login successfully!");
-
-        }catch (Exception e){
-            e.printStackTrace();
+            if (Role.equals("Client")) {
+                if (verifyClient(username, password)) {
+                    LoginMessage.setText("Login successfully!");
+                    return;
+                }
+            }
+            if (Role.equals("Manager")) {
+                if (verifyManager(username, password)) {
+                    LoginMessage.setText("Login successfully!");
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            LoginMessage.setText("Login failed!");
         }
     }
 
