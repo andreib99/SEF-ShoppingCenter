@@ -22,6 +22,8 @@ public class UserService {
 
     public static List<Client> clients;
     public static List<Manager> managers;
+    private static String current_manager;
+    private static String current_client;
     private static final Path CLIENTS_PATH = FileSystemService.getPathToFile("config", "clients.json");
     private static final Path Managers_PATH = FileSystemService.getPathToFile("config", "managers.json");
 
@@ -136,4 +138,20 @@ public class UserService {
         }
         return false;
     }
+
+    public static String getCurrent_manager() {
+        return current_manager;
+    }
+
+    public static String getCurrent_client() {
+        return current_client;
+    }
+
+    public static void setCurrent_manager(String name) {
+        current_manager = name;
+    }
+    public static void setCurrent_client(String name){
+        current_client = name;
+    }
+
 }

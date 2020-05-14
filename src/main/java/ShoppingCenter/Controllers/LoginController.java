@@ -1,7 +1,6 @@
 package ShoppingCenter.Controllers;
 
-import ShoppingCenter.Model.Client;
-import javafx.embed.swing.JFXPanel;
+import ShoppingCenter.Services.UserService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,14 +9,10 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import ShoppingCenter.Exceptions.UsernameAlreadyExistsException;
-import ShoppingCenter.Services.UserService;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
-
-import static ShoppingCenter.Services.UserService.clients;
 
 public class LoginController< choice > {
 
@@ -34,15 +29,15 @@ public class LoginController< choice > {
     public void initialize() {
         role.getItems().addAll("Client", "Manager");
     }
+
     @FXML
-    private String getChoice()
-    {
-        String choice =this.role.getValue();
+    private String getChoice() {
+        String choice = this.role.getValue();
         return choice;
     }
+
     @FXML
-    public void handleRegisterButtonAction() throws  IOException
-    {
+    public void handleRegisterButtonAction() throws IOException {
         try {
             Stage stage = (Stage) LoginMessage.getScene().getWindow();
             Parent register = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("register.fxml")));
@@ -52,57 +47,56 @@ public class LoginController< choice > {
             e.printStackTrace();
         }
     }
+
     @FXML
     public void handleLoginButtonAction() {
         String username = usernameField.getText();
         String password = passwordField.getText();
         String Role = role.getValue();
 
-        if(username == null || username.isEmpty())
-        {
+        if (username == null || username.isEmpty()) {
             LoginMessage.setText("Please type in a username!");
             return;
         }
-        if(password == null || password.isEmpty())
-        {
+        if (password == null || password.isEmpty()) {
             LoginMessage.setText("Please type in a password!");
             return;
         }
-        if(Role == null ||Role.isEmpty())
-        {
+        if (Role == null || Role.isEmpty()) {
             LoginMessage.setText("Please select a role!");
             return;
         }
 
-        if(getChoice().equals("Client"))
-        {
-            if(!UserService.verifyClient(username, password))
-            {
+        if (getChoice().equals("Client")) {
+            if (!UserService.verifyClient(username, password)) {
                 LoginMessage.setText("The credentials are invalid!");
                 return;
             }
         }
-        if(getChoice().equals("Manager"))
-        {
-            if(!UserService.verifyManager(username, password))
-            {
+        if (getChoice().equals("Manager")) {
+            if (!UserService.verifyManager(username, password)) {
                 LoginMessage.setText("The credentials are invalid!");
                 return;
             }
         }
         try {
-            LoginMessage.setText("Login successfully!");
-            try {
-                Stage stage = (Stage) LoginMessage.getScene().getWindow();
-                Parent store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("view_stores.fxml")));
-                Scene scene = new Scene(store);
-                stage.setScene(scene);
-            }catch (Exception e){
-                e.printStackTrace();
+            if (getChoice().equals("Client")) {
+                UserService.setCurrent_client(usernameField.getText());
+                UserService.setCurrent_manager("");
             }
-        }catch (Exception e){
+            if (getChoice().equals("Manager")) {
+                UserService.setCurrent_manager(usernameField.getText());
+                UserService.setCurrent_client("");
+            }
+            LoginMessage.setText("Login successfully!");
+            Stage stage = (Stage) LoginMessage.getScene().getWindow();
+            Parent store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("view_stores.fxml")));
+
+            Scene scene = new Scene(store);
+            stage.setScene(scene);
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 }

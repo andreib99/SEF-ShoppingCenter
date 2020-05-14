@@ -47,5 +47,17 @@ public class ViewStoresController {
         }
     }
 
+    public void handleEditButtonAction()
+    {
+        try {
+            Stage stage = (Stage) storeTable.getScene().getWindow();
+            Parent store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("edit_profile.fxml")));
+            Scene scene = new Scene(store);
+            stage.setScene(scene);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 
 }
