@@ -1,1 +1,14 @@
-[]
+[ {
+  "name" : "Nike",
+  "products" : [ {
+    "name" : "hat",
+    "quantity" : 20,
+    "price" : 20.99,
+    "promotion" : 20.0
+  }, {
+    "name" : "trousers",
+    "quantity" : 10,
+    "price" : 50.78,
+    "promotion" : 0.0
+  } ]
+} ]
