@@ -15,5 +15,20 @@
     "quantity" : 12,
     "price" : 7.4,
     "promotion" : 5.6
+  }, {
+    "name" : "T-shirt",
+    "quantity" : 25,
+    "price" : 67.0,
+    "promotion" : 67.0
+  }, {
+    "name" : "Jacket",
+    "quantity" : 15,
+    "price" : 240.0,
+    "promotion" : 240.0
+  }, {
+    "name" : "Air Max 97",
+    "quantity" : 5,
+    "price" : 450.0,
+    "promotion" : 450.0
   } ]
 } ]
