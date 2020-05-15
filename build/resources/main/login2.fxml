@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #6495ed;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ShoppingCenter.Controllers.LoginController">
+   <children>
+      <Label layoutX="131.0" layoutY="32.0" text="SEF - SHOPPING CENTRE">
+         <font>
+            <Font name="Arial Bold Italic" size="24.0" />
+         </font></Label>
+      <Label layoutX="247.0" layoutY="68.0" text="LOGIN">
+         <font>
+            <Font name="Arial Bold Italic" size="23.0" />
+         </font>
+      </Label>
+      <Text fx:id="LoginMessage" layoutX="424.0" layoutY="322.0" wrappingWidth="140.33495825529099" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <Label layoutX="176.0" layoutY="147.0" text="Username :">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font></Label>
+      <Label layoutX="177.0" layoutY="200.0" text="Password :">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font></Label>
+      <Label layoutX="220.0" layoutY="249.0" text="Role :">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font></Label>
+      <PasswordField fx:id="passwordField" layoutX="300.0" layoutY="198.0" promptText="password" />
+      <TextField fx:id="usernameField" layoutX="300.0" layoutY="145.0" promptText="username" />
+      <ChoiceBox fx:id="role" layoutX="299.0" layoutY="247.0" prefWidth="150.0" />
+      <ImageView fitHeight="39.0" fitWidth="43.0" layoutX="121.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@avatar.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="39.0" fitWidth="49.0" layoutX="121.0" layoutY="191.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@circle.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="47.0" fitWidth="44.0" layoutX="119.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img_91991.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="190.0" layoutY="304.0" mnemonicParsing="false" onAction="#handleRegisterButtonAction" prefHeight="27.0" prefWidth="73.0" text="Register" />
+      <Button layoutX="309.0" layoutY="304.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" prefHeight="27.0" prefWidth="73.0" text="Login" />
+   </children>
+</Pane>

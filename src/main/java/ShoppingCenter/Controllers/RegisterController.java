@@ -101,7 +101,7 @@ public class RegisterController< choice > {
     {
         try {
             Stage stage = (Stage) LoginMessage.getScene().getWindow();
-            Parent store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("login.fxml")));
+            Parent store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("login2.fxml")));
             Scene scene = new Scene(store);
             stage.setScene(scene);
         }catch (Exception e){
