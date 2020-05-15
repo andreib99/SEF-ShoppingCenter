@@ -208,7 +208,7 @@ public class UserService {
             throw new CouldNotWriteUsersException();
         }
     }
-    private static void persistStores() {
+    public static void persistStores() {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(Stores_PATH.toFile(), stores);

@@ -50,8 +50,10 @@ public class ViewProductsManagerController {
     public void handelAddProductButtonAction()
     {
         try{
-
-
+            Stage stage = (Stage) storeTable.getScene().getWindow();
+            Parent store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("add.fxml")));
+            Scene scene = new Scene(store);
+            stage.setScene(scene);
         }catch(Exception e) {
            e.printStackTrace();
         }

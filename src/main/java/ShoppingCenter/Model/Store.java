@@ -6,7 +6,7 @@ import java.util.Comparator;
 
 public class Store {
     String name;
-    ArrayList<Product> products;
+    public ArrayList<Product> products;
 
     public Store()
     {
