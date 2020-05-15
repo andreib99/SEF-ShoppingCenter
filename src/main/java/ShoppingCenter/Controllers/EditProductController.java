@@ -55,12 +55,10 @@ public class EditProductController {
                             if (price.isEmpty())
                             {
                                 price_init = p.getPrice();
-                                System.out.println(price_init);
                                 if (!promotion.isEmpty())
                                 {
                                     discount = Integer.valueOf(promotion);
                                     price_init = price_init - (price_init * discount) / 100;
-                                    System.out.println(price_init);
                                     p.setPrice(price_init);
                                     p.setPromotion((double) discount);
                                 }
@@ -68,13 +66,10 @@ public class EditProductController {
                             if (!price.isEmpty())
                             {
                                 price_init = Double.valueOf(price);
-                                System.out.println(price_init);
                                 if (!promotion.isEmpty())
                                 {
                                     discount = Integer.valueOf(promotion);
-                                    System.out.println(discount);
                                     price_init = price_init - (price_init * discount) / 100;
-                                    System.out.println(price_init);
                                     p.setPrice(price_init);
                                     p.setPromotion((double) discount);
                                 }
