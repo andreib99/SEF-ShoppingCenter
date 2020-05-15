@@ -46,6 +46,17 @@ public class ViewProductsManagerController {
         storeTable.setItems(lines);
     }
 
+    public void handleEditProductButtonAction()
+    {
+        try{
+            Stage stage = (Stage) storeTable.getScene().getWindow();
+            Parent store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("edit.fxml")));
+            Scene scene = new Scene(store);
+            stage.setScene(scene);
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void handelAddProductButtonAction()
     {

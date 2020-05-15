@@ -30,6 +30,14 @@
          <DropShadow />
       </effect>
    </Button>
+   <Button layoutX="414.0" layoutY="497.0" mnemonicParsing="false" onAction="#handleEditProductButtonAction" prefHeight="33.0" prefWidth="152.0" text="Edit a product">
+      <font>
+         <Font name="Arial" size="18.0" />
+      </font>
+      <effect>
+         <DropShadow />
+      </effect>
+   </Button>
 
     <children>
         <BorderPane prefHeight="400.0" prefWidth="600.0">
