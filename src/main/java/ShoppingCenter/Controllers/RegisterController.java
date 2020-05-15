@@ -14,8 +14,7 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
-import static ShoppingCenter.Services.UserService.setCurrent_client;
-import static ShoppingCenter.Services.UserService.setCurrent_manager;
+import static ShoppingCenter.Services.UserService.*;
 
 public class RegisterController< choice > {
     @FXML
@@ -75,10 +74,22 @@ public class RegisterController< choice > {
                 UserService.addClient(username, password , name, number, address);
             }
             LoginMessage.setText("Account created successfully!");
-            Stage stage = (Stage) LoginMessage.getScene().getWindow();
-            Parent Store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("view_stores.fxml")));
-            Scene scene = new Scene(Store);
-            stage.setScene(scene);
+            if(getChoice().equals("Manager"))
+            {
+                setCurrent_store(store);
+                Stage stage = (Stage) LoginMessage.getScene().getWindow();
+                Parent Store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("view_products_manager.fxml")));
+                Scene scene = new Scene(Store);
+                stage.setScene(scene);
+            }
+            else
+            {
+                Stage stage = (Stage) LoginMessage.getScene().getWindow();
+                Parent Store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("view_stores.fxml")));
+                Scene scene = new Scene(Store);
+                stage.setScene(scene);
+            }
+
         } catch (UsernameAlreadyExistsException  e) {
             LoginMessage.setText(e.getMessage());
         } catch (Exception e){
