@@ -36,10 +36,10 @@
             <Font name="Arial Bold" size="15.0" />
          </font>
       </Label>
-      <TextField layoutX="274.0" layoutY="160.0" />
-      <TextField layoutX="274.0" layoutY="222.0" />
-      <TextField layoutX="274.0" layoutY="283.0" />
-      <TextField layoutX="274.0" layoutY="348.0" />
+      <TextField fx:id="nameField" layoutX="274.0" layoutY="160.0" />
+      <TextField fx:id="priceField" layoutX="274.0" layoutY="222.0" />
+      <TextField fx:id="discountField" layoutX="274.0" layoutY="283.0" />
+      <TextField fx:id="quantityField" layoutX="274.0" layoutY="348.0" />
       <ImageView fitHeight="54.0" fitWidth="64.0" layoutX="121.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@sale.png" />
@@ -55,7 +55,7 @@
             <Image url="@quantity.png" />
          </image>
       </ImageView>
-      <Button layoutX="461.0" layoutY="244.0" mnemonicParsing="false" prefHeight="7.0" prefWidth="91.0" text="Finish">
+      <Button layoutX="461.0" layoutY="244.0" mnemonicParsing="false" onAction="#handleFinishButtonAction" prefHeight="7.0" prefWidth="91.0" text="Finish">
          <font>
             <Font size="15.0" />
          </font>
