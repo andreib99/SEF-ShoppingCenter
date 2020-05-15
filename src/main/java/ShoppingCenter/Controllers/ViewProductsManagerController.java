@@ -47,7 +47,15 @@ public class ViewProductsManagerController {
     }
 
 
+    public void handelAddProductButtonAction()
+    {
+        try{
 
+
+        }catch(Exception e) {
+           e.printStackTrace();
+        }
+    }
 
     public void handleEditProfileButtonAction()
     {
