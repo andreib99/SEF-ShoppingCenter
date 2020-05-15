@@ -6,6 +6,7 @@ import ShoppingCenter.Services.UserService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -94,4 +95,14 @@ public class ViewProductsManagerController {
         }
     }
 
+    public void handleRemoveProductButton() {
+        try {
+            Stage stage = (Stage) storeTable.getScene().getWindow();
+            Parent store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("remove_product.fxml")));
+            Scene scene = new Scene(store);
+            stage.setScene(scene);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

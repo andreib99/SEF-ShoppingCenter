@@ -1,5 +1,6 @@
 package ShoppingCenter.Controllers;
 
+import ShoppingCenter.Exceptions.StoreAlreadyExistsException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +13,7 @@ import ShoppingCenter.Services.UserService;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Objects;
 
 import static ShoppingCenter.Services.UserService.*;
@@ -90,7 +92,7 @@ public class RegisterController< choice > {
                 stage.setScene(scene);
             }
 
-        } catch (UsernameAlreadyExistsException  e) {
+        } catch (UsernameAlreadyExistsException | StoreAlreadyExistsException e) {
             LoginMessage.setText(e.getMessage());
         } catch (Exception e){
             e.printStackTrace();
