@@ -1,5 +1,6 @@
 package ShoppingCenter.Controllers;
 
+import ShoppingCenter.Model.Manager;
 import ShoppingCenter.Services.UserService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+import static ShoppingCenter.Services.UserService.setCurrent_store;
+
 public class LoginController< choice > {
 
     @FXML
@@ -26,8 +29,11 @@ public class LoginController< choice > {
     private ChoiceBox<String> role;
 
     @FXML
-    public void initialize() {
+    public void initialize() throws IOException {
         role.getItems().addAll("Client", "Manager");
+        UserService.loadClientsFromFile();
+        UserService.loadManagersFromFile();
+        UserService.loadStoresFromFile();
     }
 
     @FXML
@@ -89,12 +95,29 @@ public class LoginController< choice > {
                 UserService.setCurrent_client("");
             }
             LoginMessage.setText("Login successfully!");
-            Stage stage = (Stage) LoginMessage.getScene().getWindow();
-            Parent store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("view_stores.fxml")));
+            if (getChoice().equals("Client")) {
+                Stage stage = (Stage) LoginMessage.getScene().getWindow();
+                Parent store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("view_stores.fxml")));
 
-            Scene scene = new Scene(store);
-            stage.setScene(scene);
+                Scene scene = new Scene(store);
+                stage.setScene(scene);
+            }
+            else
+            {
+                for(Manager manager : UserService.managers)
+                {
+                    if(manager.getUsername().equals(usernameField.getText()))
+                    {
+                        setCurrent_store(manager.getStore_name());
 
+                    }
+                }
+
+                Stage stage = (Stage) LoginMessage.getScene().getWindow();
+                Parent Store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("view_products_manager.fxml")));
+                Scene scene = new Scene(Store);
+                stage.setScene(scene);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,5 +1,6 @@
 package ShoppingCenter.Controllers;
 
+import ShoppingCenter.Exceptions.PasswordNeededException;
 import ShoppingCenter.Exceptions.StoreAlreadyExistsException;
 import ShoppingCenter.Exceptions.UsernameAlreadyExistsException;
 import ShoppingCenter.Model.Client;
@@ -84,19 +85,29 @@ public class EditProfileController {
             }
             EditMessage.setText("Successfully modified!");
 
-        }catch(UsernameAlreadyExistsException | StoreAlreadyExistsException e)
+        }catch(UsernameAlreadyExistsException | StoreAlreadyExistsException | PasswordNeededException e)
         {
             EditMessage.setText(e.getMessage());
         }
     }
 
-    public void handleViewStoresButtonAction()
+    public void handleReturnButtonAction()
     {
         try {
-            Stage stage = (Stage) EditMessage.getScene().getWindow();
-            Parent store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("view_stores.fxml")));
-            Scene scene = new Scene(store);
-            stage.setScene(scene);
+            if(UserService.getCurrent_client().equals("")) {
+                UserService.setCurrent_store(storeField.getText());
+                Stage stage = (Stage) EditMessage.getScene().getWindow();
+                Parent store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("view_products_manager.fxml")));
+                Scene scene = new Scene(store);
+                stage.setScene(scene);
+            }
+            else
+            {
+                Stage stage = (Stage) EditMessage.getScene().getWindow();
+                Parent store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("view_stores.fxml")));
+                Scene scene = new Scene(store);
+                stage.setScene(scene);
+            }
         }catch (Exception e){
             e.printStackTrace();
         }

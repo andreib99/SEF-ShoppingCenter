@@ -1,11 +1,13 @@
 package ShoppingCenter.Services;
 
 import ShoppingCenter.Exceptions.CouldNotWriteUsersException;
+import ShoppingCenter.Exceptions.PasswordNeededException;
 import ShoppingCenter.Exceptions.StoreAlreadyExistsException;
 import ShoppingCenter.Exceptions.UsernameAlreadyExistsException;
 
 import ShoppingCenter.Model.Client;
 import ShoppingCenter.Model.Manager;
+import ShoppingCenter.Model.Store;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.apache.commons.io.FileUtils;
@@ -23,10 +25,13 @@ public class UserService {
 
     public static List<Client> clients;
     public static List<Manager> managers;
+    public static List<Store> stores;
     private static String current_manager;
     private static String current_client;
+    private static String current_store;
     private static final Path CLIENTS_PATH = FileSystemService.getPathToFile("config", "clients.json");
     private static final Path Managers_PATH = FileSystemService.getPathToFile("config", "managers.json");
+    private static final Path Stores_PATH = FileSystemService.getPathToFile("config", "stores.json");
 
     public static void addClient(String username, String password,
                                  String name, String number, String address) throws UsernameAlreadyExistsException {
@@ -35,22 +40,27 @@ public class UserService {
         persistClients();
     }
 
+
+
     public static void addManager(String username, String password,
                                   String name, String number, String store) throws UsernameAlreadyExistsException {
         checkManagerDoesNotAlreadyExist(username);
+        stores.add(new Store(store));
         managers.add(new Manager(username, encodePassword(username, password), name, number, store));
+
         persistManagers();
+        persistStores();
     }
 
-    public static void modifyManager(String username, String password, String name, String number, String store) throws UsernameAlreadyExistsException, StoreAlreadyExistsException {
+
+
+    public static void modifyManager(String username, String password, String name, String number, String store) throws UsernameAlreadyExistsException, StoreAlreadyExistsException, PasswordNeededException {
         // verify if the username is available
-        if(!username.equals(current_manager)) {
-            for (Manager manager : managers) {
-                if (Objects.equals(username, manager.getUsername())) {
-                    checkManagerDoesNotAlreadyExist(username);
-                }
-            }
+        if(password.isEmpty())
+        {
+            throw new PasswordNeededException();
         }
+        checkManagerDoesNotAlreadyExist(username);
         //make the modification
         for (Manager manager : managers) {
             if (Objects.equals(current_manager, manager.getUsername())) {
@@ -59,10 +69,7 @@ public class UserService {
                     manager.setUsername(username);
                     current_manager = username;
                 }
-                if(!password.isEmpty())
-                {
-                    manager.setPassword(encodePassword(username, password));
-                }
+                manager.setPassword(encodePassword(username, password));
                 if(!name.isEmpty())
                 {
                     manager.setName(name);
@@ -74,21 +81,32 @@ public class UserService {
                 if(!store.isEmpty() && !store.equals(manager.getStore_name()))
                 {
                     checkStoreDoesNotAlreadyExist(store);
+
+                    for(Store st : stores)
+                    {
+                        if(st.getName().equals(manager.getStore_name()))
+                        {
+
+                            st.setName(store);
+                            setCurrent_store(store);
+                            persistStores();
+                        }
+                    }
                     manager.setStore_name(store);
                 }
             }
         }
         persistManagers();
+
     }
-    public static void modifyClient(String username, String password, String name, String number, String address) throws UsernameAlreadyExistsException {
+    public static void modifyClient(String username, String password, String name, String number, String address) throws UsernameAlreadyExistsException, PasswordNeededException {
         // verify if the username is available
-        if(!username.equals(current_client)) {
-            for (Client client : clients) {
-                if (Objects.equals(username, client.getUsername())) {
-                    checkClientDoesNotAlreadyExist(username);
-                }
-            }
+      checkClientDoesNotAlreadyExist(username);
+        if(password.isEmpty())
+        {
+            throw new PasswordNeededException();
         }
+
         //make the modification
         for (Client client : clients) {
             if (Objects.equals(current_client, client.getUsername())) {
@@ -97,10 +115,7 @@ public class UserService {
                     client.setUsername(username);
                     current_client = username;
                 }
-                if(!password.isEmpty())
-                {
-                    client.setPassword(encodePassword(username, password));
-                }
+                client.setPassword(encodePassword(client.getUsername(), password));
                 if(!name.isEmpty())
                 {
                     client.setName(name);
@@ -143,6 +158,18 @@ public class UserService {
         });
     }
 
+    public static void loadStoresFromFile() throws IOException {
+
+        if (!Files.exists(Stores_PATH)) {
+            FileUtils.copyURLToFile(Objects.requireNonNull(UserService.class.getClassLoader().getResource("stores.json")), Stores_PATH.toFile());
+        }
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        stores = objectMapper.readValue(Stores_PATH.toFile(), new TypeReference<List<Store>>() {
+        });
+    }
+
     private static void checkClientDoesNotAlreadyExist(String username) throws UsernameAlreadyExistsException {
         for (Client client : clients) {
             if (Objects.equals(username, client.getUsername()))
@@ -181,6 +208,14 @@ public class UserService {
             throw new CouldNotWriteUsersException();
         }
     }
+    private static void persistStores() {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(Stores_PATH.toFile(), stores);
+        } catch (IOException e) {
+            throw new CouldNotWriteUsersException();
+        }
+    }
 
 
     private static String encodePassword(String salt, String password) {
@@ -206,7 +241,7 @@ public class UserService {
 
     public static boolean verifyClient(String username, String password) {
         for (Client client : clients) {
-            if (username.equals(client.getUsername()) && Objects.equals(encodePassword(username, password), client.getPassword()))
+            if (username.equals(client.getUsername()) && encodePassword(username, password).equals(client.getPassword()))
             {
                 return true;
             }
@@ -237,6 +272,13 @@ public class UserService {
     }
     public static void setCurrent_client(String name){
         current_client = name;
+    }
+    public static String getCurrent_store() {
+        return current_store;
+    }
+
+    public static void setCurrent_store(String current_store) {
+        UserService.current_store = current_store;
     }
 
 }

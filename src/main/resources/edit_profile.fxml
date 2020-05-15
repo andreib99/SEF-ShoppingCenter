@@ -60,7 +60,7 @@
             <effect>
                 <DropShadow height="23.97" radius="12.225" width="26.93" />
             </effect></Button>
-        <Button layoutX="429.0" layoutY="148.0" mnemonicParsing="false" onAction="#handleViewStoresButtonAction" prefHeight="42.0" prefWidth="81.0" text="Back">
+        <Button layoutX="429.0" layoutY="148.0" mnemonicParsing="false" onAction="#handleReturnButtonAction" prefHeight="42.0" prefWidth="81.0" text="Back">
             <font>
                 <Font name="Californian FB" size="18.0" />
             </font>

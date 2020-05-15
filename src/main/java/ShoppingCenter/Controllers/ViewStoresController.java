@@ -1,6 +1,8 @@
 package ShoppingCenter.Controllers;
 
 import ShoppingCenter.Model.Manager;
+import ShoppingCenter.Model.Store;
+import ShoppingCenter.Services.UserService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,18 +11,22 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.Objects;
 
-import static ShoppingCenter.Services.UserService.managers;
+import static ShoppingCenter.Services.UserService.*;
 
 
 public class ViewStoresController {
     @FXML
     public TableView<Manager> storeTable;
-
+    public Text ProductField;
+    @FXML
+    TextField StoreField;
     @FXML
     public TableColumn<Manager, String> Store_name;
     public TableColumn<Manager, String> Manager_name;
@@ -47,6 +53,7 @@ public class ViewStoresController {
         }
     }
 
+
     public void handleEditButtonAction()
     {
         try {
@@ -58,6 +65,48 @@ public class ViewStoresController {
             e.printStackTrace();
         }
     }
+    public void handleViewProductsButtonAction() {
 
+        try {
+            String store_name = StoreField.getText();
+            if(store_name.isEmpty())
+            {
+                ProductField.setText("Enter a store!");
+                return;
+            }
+            boolean ok = false;
+            for (Store st : stores) {
+                if (st.getName().equals(store_name)) {
+                    ok = true;
+                    break;
 
+                }
+            }
+            if(ok)
+            {
+                UserService.setCurrent_store(store_name);
+            }
+            else
+            {
+                ProductField.setText("Invalid store!");
+                return;
+            }
+
+            if(getCurrent_client().equals("")) {
+                Stage stage = (Stage) storeTable.getScene().getWindow();
+                Parent store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("view_products_manager.fxml")));
+                Scene scene = new Scene(store);
+                stage.setScene(scene);
+            }
+            else
+            {
+                Stage stage = (Stage) storeTable.getScene().getWindow();
+                Parent store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("view_products_client.fxml")));
+                Scene scene = new Scene(store);
+                stage.setScene(scene);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }
