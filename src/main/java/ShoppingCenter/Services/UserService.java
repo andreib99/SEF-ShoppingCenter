@@ -43,8 +43,9 @@ public class UserService {
 
 
     public static void addManager(String username, String password,
-                                  String name, String number, String store) throws UsernameAlreadyExistsException {
+                                  String name, String number, String store) throws UsernameAlreadyExistsException, StoreAlreadyExistsException {
         checkManagerDoesNotAlreadyExist(username);
+        checkStoreDoesNotAlreadyExist(store);
         stores.add(new Store(store));
         managers.add(new Manager(username, encodePassword(username, password), name, number, store));
 
@@ -60,7 +61,11 @@ public class UserService {
         {
             throw new PasswordNeededException();
         }
-        checkManagerDoesNotAlreadyExist(username);
+        if(!username.equals(current_manager))
+        {
+            checkManagerDoesNotAlreadyExist(username);
+        }
+
         //make the modification
         for (Manager manager : managers) {
             if (Objects.equals(current_manager, manager.getUsername())) {
