@@ -10,5 +10,10 @@
     "quantity" : 10,
     "price" : 50.78,
     "promotion" : 0.0
+  }, {
+    "name" : "Ball",
+    "quantity" : 12,
+    "price" : 7.4,
+    "promotion" : 5.6
   } ]
 } ]
