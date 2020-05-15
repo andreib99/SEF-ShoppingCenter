@@ -2,19 +2,20 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
 <?import javafx.geometry.Insets?>
 <AnchorPane depthTest="ENABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #6495ed; -fx-background-radius: 25;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ShoppingCenter.Controllers.ViewStoresController">
-    <Button layoutX="432.0" layoutY="513.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" prefHeight="39.0" prefWidth="156.0" text="Return to login">
+    <Button layoutX="432.0" layoutY="500.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" prefHeight="39.0" prefWidth="156.0" text="Return to login">
         <font>
             <Font name="Californian FB" size="18.0" />
         </font>
         <effect>
             <DropShadow height="23.97" radius="12.225" width="26.93" />
         </effect></Button>
-    <Button layoutX="432.0" layoutY="438.0" mnemonicParsing="false" onAction="#handleViewProductsButtonAction" prefHeight="39.0" prefWidth="156.0" text="View Products">
+    <Button layoutX="432.0" layoutY="444.0" mnemonicParsing="false" onAction="#handleViewProductsButtonAction" prefHeight="39.0" prefWidth="156.0" text="View Products">
         <font>
             <Font size="18.0" />
         </font>
@@ -22,13 +23,17 @@
             <DropShadow />
         </effect>
     </Button>
-    <Label layoutX="75.0" layoutY="444.0" text="Store name:">
+    <Text fx:id="Message" layoutX="222.0" layoutY="429.0" wrappingWidth="78.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+      <font>
+         <Font name="Arial Bold" size="20.0" />
+      </font></Text>
+    <Label layoutX="65.0" layoutY="500.0" text="Store name:">
         <font>
             <Font size="18.0" />
         </font>
     </Label>
-    <TextField fx:id="StoreField" alignment="CENTER" layoutX="222.0" layoutY="438.0" prefHeight="39.0" prefWidth="156.0" />
-    <Button layoutX="45.0" layoutY="513.0" mnemonicParsing="false" onAction="#handleEditButtonAction" prefHeight="39.0" prefWidth="156.0" text="Edit Profile">
+    <TextField fx:id="StoreField" alignment="CENTER" layoutX="222.0" layoutY="491.0" prefHeight="39.0" prefWidth="156.0" />
+    <Button layoutX="432.0" layoutY="386.0" mnemonicParsing="false" onAction="#handleEditButtonAction" prefHeight="39.0" prefWidth="156.0" text="Edit Profile">
         <font>
             <Font size="18.0" />
         </font>
@@ -36,10 +41,20 @@
             <DropShadow />
         </effect>
     </Button>
-   <Text fx:id="ProductField" layoutX="230.0" layoutY="530.0">
+   <Text fx:id="ProductField" layoutX="222.0" layoutY="555.0" wrappingWidth="155.9999942779541">
       <font>
-         <Font size="18.0" />
+         <Font name="Arial Bold" size="18.0" />
       </font></Text>
+   <Label layoutX="160.0" layoutY="416.0" text="USER :">
+      <font>
+         <Font name="Arial" size="15.0" />
+      </font>
+   </Label>
+   <ImageView fitHeight="134.0" fitWidth="177.0" layoutX="14.0" layoutY="356.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@shopping.png" />
+      </image>
+   </ImageView>
     <children>
         <BorderPane prefHeight="400.0" prefWidth="600.0">
             <center>

@@ -26,6 +26,8 @@ public class ViewStoresController {
     public TableView<Manager> storeTable;
     public Text ProductField;
     @FXML
+    public Text Message;
+    @FXML
     TextField StoreField;
     @FXML
     public TableColumn<Manager, String> Store_name;
@@ -33,6 +35,7 @@ public class ViewStoresController {
     public TableColumn<Manager, String> Manager_number;
     @FXML
     public void initialize() {
+        Message.setText(UserService.getCurrent_client());
         Store_name.setCellValueFactory(new PropertyValueFactory<>("Store_name"));
         Manager_name.setCellValueFactory(new PropertyValueFactory<>("username"));
         Manager_number.setCellValueFactory(new PropertyValueFactory<>("number"));
