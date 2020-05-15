@@ -28,6 +28,7 @@ public class ViewProductsClientController {
     public TableColumn<Product, String> Product_name;
     public TableColumn<Product, Integer> Product_quantity;
     public TableColumn<Product, Double> Product_price;
+    public javafx.scene.image.ImageView ImageView;
     @FXML
     private ObservableList<Product> lines;
     public void initialize() {
@@ -45,7 +46,17 @@ public class ViewProductsClientController {
 
         storeTable.setItems(lines);
     }
-
+    public void handleBuyAction()
+    {
+        try {
+            Stage stage = (Stage) storeTable.getScene().getWindow();
+            Parent store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("buy-product.fxml")));
+            Scene scene = new Scene(store);
+            stage.setScene(scene);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     public void handleViewStoresButtonAction() {
         try {
             Stage stage = (Stage) storeTable.getScene().getWindow();

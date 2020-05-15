@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane fx:id="ch" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #6495ed;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ShoppingCenter.Controllers.BuyProductController">
+    <children>
+        <Label fx:id="RemoveMessage" layoutX="268.0" layoutY="55.0" prefHeight="53.0" prefWidth="176.0" text="Buy a product">
+            <font>
+                <Font name="Comic Sans MS" size="23.0" />
+            </font></Label>
+        <ChoiceBox fx:id="choiceBox" layoutX="99.0" layoutY="199.0" prefWidth="150.0" />
+        <Label layoutX="122.0" layoutY="174.0" text="Choose a product">
+            <font>
+                <Font name="Arial Bold Italic" size="15.0" />
+            </font>
+        </Label>
+        <Button layoutX="95.0" layoutY="312.0" mnemonicParsing="false" onAction="#handleBackToProductsAction" text="Back to product list">
+            <font>
+                <Font name="Arial" size="16.0" />
+            </font>
+            <effect>
+                <DropShadow />
+            </effect>
+        </Button>
+      <ImageView fitHeight="91.0" fitWidth="125.0" layoutX="340.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@shopping-cart.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="326.0" layoutY="143.0" text="Click the cart to add ">
+         <font>
+            <Font name="Comic Sans MS Bold" size="13.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="64.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@shopping.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="91.0" fitWidth="76.0" layoutX="368.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@task-complete.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="455.0" layoutY="317.0" text="Finish">
+         <font>
+            <Font name="Comic Sans MS Bold" size="15.0" />
+         </font>
+      </Label>
+    </children>
+</Pane>
