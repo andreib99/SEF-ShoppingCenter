@@ -33,6 +33,7 @@ public class EditProductController {
         String price = priceField.getText();
         String promotion = discountField.getText();
         String quantity = quantityField.getText();
+        int found = 0;
 
         double price_init = 0;
         int discount = 0;
@@ -52,6 +53,7 @@ public class EditProductController {
                     {
                         if (Objects.equals(p.getName(), name))
                         {
+                            found = 1;
                             if (price.isEmpty())
                             {
                                 price_init = p.getPrice();
@@ -82,8 +84,8 @@ public class EditProductController {
                             {
                               p.setQuantity(Integer.valueOf(quantity));
                             }
-                             UserService.persistStores();
-                             Message.setText("Successfully modified!");
+                                UserService.persistStores();
+                                Message.setText("Successfully modified!");
                         }
 
                     }
@@ -91,6 +93,10 @@ public class EditProductController {
                 }
             }
 
+        }
+        if(found == 0)
+        {
+            Message.setText("This product don't exist in the store!");
         }
     }
 
