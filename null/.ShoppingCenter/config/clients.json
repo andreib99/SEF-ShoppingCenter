@@ -18,8 +18,14 @@
   "name" : "Alexandra"
 }, {
   "address" : "Romania Bucharest Street FF Nr 10",
-  "username" : "john12",
+  "username" : "Jonas",
   "password" : "�v���QU��\u001B|\u0018��U����:?\u0006�PS�\u0019c���%N5a��HO��b�\r\u001C|0(v��N=\u0016�\u001F��>�ݏ��",
   "number" : "0745890431",
+  "name" : "john"
+}, {
+  "address" : "Bucharest Str. Dins",
+  "username" : "john12",
+  "password" : "�v���QU��\u001B|\u0018��U����:?\u0006�PS�\u0019c���%N5a��HO��b�\r\u001C|0(v��N=\u0016�\u001F��>�ݏ��",
+  "number" : "0741567982",
   "name" : "john"
 } ]

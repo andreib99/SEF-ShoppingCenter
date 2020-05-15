@@ -1,6 +1,7 @@
 package ShoppingCenter.Controllers;
 
 import ShoppingCenter.Model.Manager;
+import ShoppingCenter.Services.UserService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.Objects;
@@ -20,13 +22,15 @@ import static ShoppingCenter.Services.UserService.managers;
 public class ViewStoresController {
     @FXML
     public TableView<Manager> storeTable;
-
+    @FXML
+    public Text Message;
     @FXML
     public TableColumn<Manager, String> Store_name;
     public TableColumn<Manager, String> Manager_name;
     public TableColumn<Manager, String> Manager_number;
     @FXML
     public void initialize() {
+        Message.setText(UserService.getCurrent_client());
         Store_name.setCellValueFactory(new PropertyValueFactory<>("Store_name"));
         Manager_name.setCellValueFactory(new PropertyValueFactory<>("username"));
         Manager_number.setCellValueFactory(new PropertyValueFactory<>("number"));
