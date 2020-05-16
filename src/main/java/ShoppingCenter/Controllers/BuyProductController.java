@@ -93,8 +93,21 @@ public class BuyProductController {
 
     }
 
+    public boolean validate_quantity(String quantity)
+    {
+        for(char ch : quantity.toCharArray())
+        {
+            if(!Character.isDigit(ch))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void handleBuyProductAction()
     {
+
       if(choiceBox.getValue() == null)
       {
           Message.setText("Choose an object!");
@@ -104,6 +117,11 @@ public class BuyProductController {
               String name = choiceBox.getValue();
               String quantity = quantityField.getText();
               int quantity_int = 0;
+              if(validate_quantity(quantity))
+              {
+                  Message.setText("Enter a number!");
+                  return;
+              }
              if (quantity.isEmpty())
             {
               Message.setText("Enter a quantity!");

@@ -42,58 +42,55 @@ public class EditProductController {
             Message.setText("Need to introduce a name!");
             return;
         }
-        if (!name.isEmpty())
+        String store = UserService.getCurrent_store();
+        for (Store st : stores)
         {
-            String store = UserService.getCurrent_store();
-            for (Store st : stores)
+            if (st.getName().equals(store))
             {
-                if (st.getName().equals(store))
+                for (Product p : st.getProducts())
                 {
-                    for (Product p : st.getProducts())
+                    if (Objects.equals(p.getName(), name))
                     {
-                        if (Objects.equals(p.getName(), name))
+                        found = 1;
+                        if (price.isEmpty())
                         {
-                            found = 1;
-                            if (price.isEmpty())
+                            price_init = p.getPrice();
+                            if (!promotion.isEmpty())
                             {
-                                price_init = p.getPrice();
-                                if (!promotion.isEmpty())
-                                {
-                                    discount = Integer.valueOf(promotion);
-                                    price_init = price_init - (price_init * discount) / 100;
-                                    p.setPrice(price_init);
-                                    p.setPromotion((double) discount);
-                                }
+                                discount = Integer.parseInt(promotion);
+                                price_init = price_init - (price_init * discount) / 100;
+                                p.setPrice(price_init);
+                                p.setPromotion((double) discount);
                             }
-                            if (!price.isEmpty())
-                            {
-                                price_init = Double.valueOf(price);
-                                if (!promotion.isEmpty())
-                                {
-                                    discount = Integer.valueOf(promotion);
-                                    price_init = price_init - (price_init * discount) / 100;
-                                    p.setPrice(price_init);
-                                    p.setPromotion((double) discount);
-                                }
-                            }
-                            if (quantity.isEmpty())
-                            {
-                                p.setQuantity(p.getQuantity());
-                            }
-                            if (!quantity.isEmpty())
-                            {
-                              p.setQuantity(Integer.valueOf(quantity));
-                            }
-                                UserService.persistStores();
-                                Message.setText("Successfully modified!");
                         }
-
+                        if (!price.isEmpty())
+                        {
+                            price_init = Double.parseDouble(price);
+                            if (!promotion.isEmpty())
+                            {
+                                discount = Integer.parseInt(promotion);
+                                price_init = price_init - (price_init * discount) / 100;
+                                p.setPrice(price_init);
+                                p.setPromotion((double) discount);
+                            }
+                        }
+                        if (quantity.isEmpty())
+                        {
+                            p.setQuantity(p.getQuantity());
+                        }
+                        if (!quantity.isEmpty())
+                        {
+                          p.setQuantity(Integer.valueOf(quantity));
+                        }
+                            UserService.persistStores();
+                            Message.setText("Successfully modified!");
                     }
 
                 }
-            }
 
+            }
         }
+
         if(found == 0)
         {
             Message.setText("This product don't exist in the store!");

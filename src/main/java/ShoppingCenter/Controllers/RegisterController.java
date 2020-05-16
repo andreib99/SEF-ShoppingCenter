@@ -18,7 +18,7 @@ import java.util.Objects;
 
 import static ShoppingCenter.Services.UserService.*;
 
-public class RegisterController< choice > {
+public class RegisterController {
     @FXML
     private Text LoginMessage;
     @FXML
@@ -64,6 +64,11 @@ public class RegisterController< choice > {
             return;
         }
 
+        if(!validate_password(password))
+        {
+            LoginMessage.setText("Password needs to be more than 3 letters!");
+        }
+
         try {
             if(getChoice().equals("Manager")) {
                 setCurrent_manager(username);
@@ -98,6 +103,28 @@ public class RegisterController< choice > {
             e.printStackTrace();
         }
     }
+
+    public boolean validate_password(String password)
+    {
+        if(password.length() > 3)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean validate_name(String name)
+    {
+        for(char ch : name.toCharArray())
+        {
+            if(Character.isDigit(ch))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     public void handleLoginButtonAction()
     {
