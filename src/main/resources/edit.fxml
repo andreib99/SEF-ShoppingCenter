@@ -36,7 +36,7 @@
             <Font name="Arial Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="nameField" layoutX="274.0" layoutY="160.0" />
+      <TextField fx:id="nameField" layoutX="274.0" layoutY="160.0" promptText="Product to be modified" />
       <TextField fx:id="priceField" layoutX="274.0" layoutY="222.0" />
       <TextField fx:id="discountField" layoutX="274.0" layoutY="283.0" />
       <TextField fx:id="quantityField" layoutX="274.0" layoutY="348.0" />
@@ -55,11 +55,6 @@
             <Image url="@quantity.png" />
          </image>
       </ImageView>
-      <Button layoutX="461.0" layoutY="244.0" mnemonicParsing="false" onAction="#handleFinishButtonAction" prefHeight="7.0" prefWidth="91.0" text="Finish">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Button>
       <Button layoutX="438.0" layoutY="344.0" mnemonicParsing="false" onAction="#handleBackToStoreAction" prefHeight="32.0" prefWidth="138.0" text="Return to store">
          <font>
             <Font size="15.0" />
@@ -70,5 +65,10 @@
             <Font size="15.0" />
          </font>
       </Text>
+      <ImageView fitHeight="93.0" fitWidth="91.0" layoutX="461.0" layoutY="189.0" onMousePressed="#handleFinishButtonAction" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@interfaces.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>
