@@ -253,7 +253,6 @@ public class UserService {
         }
         return false;
     }
-
     public static boolean verifyManager(String username, String password){
         for (Manager manager : managers) {
             if (Objects.equals(username, manager.getUsername()) && Objects.equals(encodePassword(username,password), manager.getPassword()))
