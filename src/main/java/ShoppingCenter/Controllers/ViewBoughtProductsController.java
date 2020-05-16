@@ -32,9 +32,9 @@ public class ViewBoughtProductsController {
         {
             if(order.getDate().equals(getCurrent_order()))
             {
-                Date.setText("Date: " + order.getDate());
-                Store_name.setText("Store: " + order.getStore_name());
-                Client_name.setText("Client: " + order.getClient_name());
+                Date.setText("" + order.getDate());
+                Store_name.setText("" + order.getStore_name());
+                Client_name.setText("" + order.getClient_name());
                 for(BoughtProduct bp : order.getBought_products())
                 {
                     String temp = bp.getName() + "   " + bp.getQuantity();

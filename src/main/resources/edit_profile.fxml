@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
@@ -12,7 +13,7 @@
                 <Font name="Arial Bold Italic" size="15.0" />
             </font>
         </Label>
-        <Text fx:id="EditMessage" layoutX="404.0" layoutY="300.0" wrappingWidth="140.33495825529099" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+        <Text fx:id="EditMessage" layoutX="412.0" layoutY="310.0" wrappingWidth="140.33495825529099" GridPane.columnIndex="1" GridPane.rowIndex="7" />
         <Label layoutX="243.0" layoutY="55.0" text="EDIT PROFILE">
             <font>
                 <Font name="Arial Bold Italic" size="15.0" />
@@ -53,19 +54,22 @@
             </font>
         </Label>
         <TextField fx:id="storeField" alignment="CENTER" layoutX="207.0" layoutY="294.0" promptText="store name" />
-        <Button layoutX="429.0" layoutY="222.0" mnemonicParsing="false" onAction="#handleEditButtonAction" prefHeight="42.0" prefWidth="81.0" text="Apply">
+        <Button layoutX="434.0" layoutY="127.0" mnemonicParsing="false" onAction="#handleReturnButtonAction" prefHeight="42.0" prefWidth="81.0" text="Back">
             <font>
                 <Font name="Californian FB" size="18.0" />
             </font>
             <effect>
                 <DropShadow height="23.97" radius="12.225" width="26.93" />
             </effect></Button>
-        <Button layoutX="429.0" layoutY="148.0" mnemonicParsing="false" onAction="#handleReturnButtonAction" prefHeight="42.0" prefWidth="81.0" text="Back">
-            <font>
-                <Font name="Californian FB" size="18.0" />
-            </font>
-            <effect>
-                <DropShadow height="23.97" radius="12.225" width="26.93" />
-            </effect></Button>
+      <ImageView fitHeight="96.0" fitWidth="116.0" layoutX="23.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resume.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="96.0" fitWidth="140.0" layoutX="427.0" layoutY="199.0" onMousePressed="#handleEditButtonAction" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@submit.png" />
+         </image>
+      </ImageView>
     </children>
 </Pane>

@@ -2,18 +2,19 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #6495ed;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ShoppingCenter.Controllers.RemoveProductController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="319.0" prefWidth="472.0" style="-fx-background-color: #6495ed;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ShoppingCenter.Controllers.RemoveProductController">
    <children>
       <ChoiceBox fx:id="ch" layoutX="225.0" layoutY="117.0" prefWidth="150.0" />
-      <Label fx:id="RemoveMessage" layoutX="170.0" layoutY="42.0" text="Select product to delete:">
+      <Label fx:id="RemoveMessage" layoutX="110.0" layoutY="42.0" prefHeight="35.0" prefWidth="260.0" text="Select product to delete:">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Button layoutX="64.0" layoutY="257.0" mnemonicParsing="false" onAction="#handleRemoveProductAction" text="Finish">
+      <Button layoutX="319.0" layoutY="230.0" mnemonicParsing="false" onAction="#handleBackToProductsAction" prefHeight="44.0" prefWidth="95.0" text="Back">
          <font>
             <Font name="Californian FB Bold" size="24.0" />
          </font>
@@ -21,18 +22,15 @@
             <DropShadow />
          </effect>
       </Button>
-      <Button layoutX="450.0" layoutY="257.0" mnemonicParsing="false" onAction="#handleBackToProductsAction" prefHeight="44.0" prefWidth="97.0" text="Back">
+      <Label fx:id="SuccessMessage" layoutX="210.0" layoutY="169.0" prefHeight="25.0" prefWidth="181.0" text=" ">
          <font>
-            <Font name="Californian FB Bold" size="24.0" />
-         </font>
-         <effect>
-            <DropShadow />
-         </effect>
-      </Button>
-      <Label fx:id="SuccessMessage" layoutX="225.0" layoutY="200.0" text=" ">
-         <font>
-            <Font size="18.0" />
+            <Font size="15.0" />
          </font>
       </Label>
+      <ImageView fitHeight="137.0" fitWidth="84.0" layoutX="60.0" layoutY="182.0" onMousePressed="#handleRemoveProductAction" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@delete.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
