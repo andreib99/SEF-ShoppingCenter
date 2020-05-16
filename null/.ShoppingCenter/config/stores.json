@@ -30,42 +30,6 @@
     "quantity" : 5,
     "price" : 450.0,
     "promotion" : 450.0
-  }, {
-    "name" : "hat",
-    "quantity" : 11,
-    "price" : 100.0,
-    "promotion" : 0.0
-  }, {
-    "name" : "hat",
-    "quantity" : 11,
-    "price" : 100.0,
-    "promotion" : 0.0
-  } ]
-}, {
-  "name" : "Nike",
-  "products" : [ {
-    "name" : "hat",
-    "quantity" : 11,
-    "price" : 100.0,
-    "promotion" : 0.0
-  }, {
-    "name" : "trousers",
-    "quantity" : 10,
-    "price" : 50.78,
-    "promotion" : 0.0
-  } ]
-}, {
-  "name" : "Nike",
-  "products" : [ {
-    "name" : "hat",
-    "quantity" : 20,
-    "price" : 20.99,
-    "promotion" : 20.0
-  }, {
-    "name" : "trousers",
-    "quantity" : 10,
-    "price" : 50.78,
-    "promotion" : 0.0
   } ]
 }, {
   "name" : "Puma",
