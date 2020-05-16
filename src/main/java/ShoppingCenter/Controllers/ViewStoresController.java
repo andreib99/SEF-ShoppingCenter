@@ -5,6 +5,7 @@ import ShoppingCenter.Model.Store;
 import ShoppingCenter.Services.UserService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -112,4 +113,15 @@ public class ViewStoresController {
             e.printStackTrace();
         }
     }
+
+    public void handleViewOrdersButtonAction() {
+        try{
+            Stage stage = (Stage) storeTable.getScene().getWindow();
+            Parent store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("view_orders_client.fxml")));
+            Scene scene = new Scene(store);
+            stage.setScene(scene);
+            }catch (Exception e){
+                e.printStackTrace();
+             }
+     }
 }

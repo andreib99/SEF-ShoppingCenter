@@ -1,6 +1,8 @@
 package ShoppingCenter.Controllers;
 
 
+import ShoppingCenter.Model.BoughtProduct;
+import ShoppingCenter.Model.Order;
 import ShoppingCenter.Model.Product;
 import ShoppingCenter.Model.Store;
 import ShoppingCenter.Services.UserService;
@@ -13,8 +15,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import javax.jws.soap.SOAPBinding;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
-import static ShoppingCenter.Services.UserService.stores;
+
+import static ShoppingCenter.Services.UserService.*;
 
 public class BuyProductController {
 
@@ -31,6 +38,10 @@ public class BuyProductController {
     @FXML
     public Text Message;
     @FXML
+
+    ArrayList<String> bought_products_name = new ArrayList<>();
+    ArrayList<String> bought_products_quantity = new ArrayList<>();
+    ArrayList<BoughtProduct> bought_products = new ArrayList<>();
     public void initialize()
     {
         List<String> temp = new ArrayList<>();
@@ -38,7 +49,7 @@ public class BuyProductController {
             if (store.getName().equals(UserService.getCurrent_store())) {
                 for (Product product : store.getProducts()) {
                     temp.add(product.getName());
-                    System.out.println(product.getName());
+
                 }
             }
         }
@@ -47,6 +58,39 @@ public class BuyProductController {
 
     public void handleFinishAction()
     {
+        LocalDateTime myDateObj = LocalDateTime.now();
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String formattedDate = myDateObj.format(myFormatObj);
+        setCurrent_order(formattedDate);
+        Order order = new Order(getCurrent_client(), getCurrent_store(), formattedDate);
+        String current_store = UserService.getCurrent_store();
+        for (Store st : stores) {
+            if (st.getName().equals(current_store)) {
+                for (Product p : st.getProducts()) {
+                    for(BoughtProduct element : bought_products)
+                    {
+                        if(p.getName().equals(element.getName()))
+                        {
+                            p.setQuantity(p.getQuantity() - Integer.parseInt(element.getQuantity()));
+                            order.getBought_products().add(element);
+                        }
+
+                    }
+
+                }
+            }
+        }
+        orders.add(order);
+        UserService.persistOrders();
+        UserService.persistStores();
+        try {
+            Stage stage = (Stage) RemoveMessage.getScene().getWindow();
+            Parent store = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("view_products_client.fxml")));
+            Scene scene = new Scene(store);
+            stage.setScene(scene);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 
@@ -55,12 +99,11 @@ public class BuyProductController {
       if(choiceBox.getValue() == null)
       {
           Message.setText("Choose an object!");
-          return;
       }
       else
           {
               String name = choiceBox.getValue();
-             String quantity = quantityField.getText();
+              String quantity = quantityField.getText();
               int quantity_int = 0;
              if (quantity.isEmpty())
             {
@@ -81,11 +124,19 @@ public class BuyProductController {
                                  if(p.getQuantity() == 0)
                                  {
                                      Message.setText("This product is not on stock!");
+                                     return;
                                  }
                                  if(quantity_int > p.getQuantity())
                                  {
                                      Message.setText("Choose a small  quantity!");
                                      return;
+                                 }
+                                 else
+                                 {
+                                     BoughtProduct bp = new BoughtProduct(name, quantity);
+                                     bought_products_name.add(name);
+                                     bought_products_quantity.add(quantity);
+                                    bought_products.add(bp);
                                  }
                              }
                          }
@@ -100,7 +151,7 @@ public class BuyProductController {
              set.add(final_String);
              observableList.setAll(set);
              listView.setItems(observableList);
-             Message.setText(choiceBox.getValue().toString() + " "+quantity);
+             Message.setText(choiceBox.getValue() + " "+quantity);
           }
     }
 
