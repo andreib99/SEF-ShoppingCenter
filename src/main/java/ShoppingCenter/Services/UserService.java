@@ -7,6 +7,7 @@ import ShoppingCenter.Exceptions.UsernameAlreadyExistsException;
 
 import ShoppingCenter.Model.Client;
 import ShoppingCenter.Model.Manager;
+import ShoppingCenter.Model.Order;
 import ShoppingCenter.Model.Store;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -26,12 +27,24 @@ public class UserService {
     public static List<Client> clients;
     public static List<Manager> managers;
     public static List<Store> stores;
+    public static List<Order> orders;
     private static String current_manager;
     private static String current_client;
     private static String current_store;
+
+    public static String getCurrent_order() {
+        return current_order;
+    }
+
+    public static void setCurrent_order(String current_order) {
+        UserService.current_order = current_order;
+    }
+
+    private static String current_order;
     private static final Path CLIENTS_PATH = FileSystemService.getPathToFile("config", "clients.json");
     private static final Path Managers_PATH = FileSystemService.getPathToFile("config", "managers.json");
     private static final Path Stores_PATH = FileSystemService.getPathToFile("config", "stores.json");
+    private static final Path Orders_PATH = FileSystemService.getPathToFile("config", "orders.json");
 
     public static void addClient(String username, String password,
                                  String name, String number, String address) throws UsernameAlreadyExistsException {
@@ -175,6 +188,18 @@ public class UserService {
         });
     }
 
+    public static void loadOrdersFromFile() throws IOException {
+
+        if (!Files.exists(Orders_PATH)) {
+            FileUtils.copyURLToFile(Objects.requireNonNull(UserService.class.getClassLoader().getResource("orders.json")), Orders_PATH.toFile());
+        }
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        orders = objectMapper.readValue(Orders_PATH.toFile(), new TypeReference<List<Order>>() {
+        });
+    }
+
     private static void checkClientDoesNotAlreadyExist(String username) throws UsernameAlreadyExistsException {
         for (Client client : clients) {
             if (Objects.equals(username, client.getUsername()))
@@ -221,7 +246,14 @@ public class UserService {
             throw new CouldNotWriteUsersException();
         }
     }
-
+    public static void persistOrders() {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(Orders_PATH.toFile(), orders);
+        } catch (IOException e) {
+            throw new CouldNotWriteUsersException();
+        }
+    }
 
     private static String encodePassword(String salt, String password) {
         MessageDigest md = getMessageDigest();

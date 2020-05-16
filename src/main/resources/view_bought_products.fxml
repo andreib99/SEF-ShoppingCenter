@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane depthTest="ENABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #6495ed; -fx-background-radius: 25;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ShoppingCenter.Controllers.ViewBoughtProductsController">
+    <Button layoutX="421.0" layoutY="539.0" mnemonicParsing="false" onAction="#handleViewOrderButtonAction" prefHeight="39.0" prefWidth="167.0" text="Return to orders">
+        <font>
+            <Font name="Californian FB" size="18.0" />
+        </font>
+        <effect>
+            <DropShadow height="23.97" radius="12.225" width="26.93" />
+        </effect></Button>
+    <Text fx:id="Client_name" layoutX="69.0" layoutY="72.0" wrappingWidth="147.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+        <font>
+            <Font name="Arial Bold" size="16.0" />
+        </font></Text>
+    <Text fx:id="Date" layoutX="393.0" layoutY="72.0" wrappingWidth="200.00000596046448">
+        <font>
+            <Font name="Arial Bold" size="16.0" />
+        </font></Text>
+   <ListView fx:id="listview" layoutX="201.0" layoutY="132.0" prefHeight="200.0" prefWidth="200.0" />
+   <Text fx:id="Store_name" layoutX="228.0" layoutY="72.0" wrappingWidth="147.0">
+      <font>
+         <Font name="Arial Bold" size="16.0" />
+      </font>
+   </Text>
+</AnchorPane>

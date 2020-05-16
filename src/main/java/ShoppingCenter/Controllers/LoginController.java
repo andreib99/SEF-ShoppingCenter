@@ -34,6 +34,7 @@ public class LoginController< choice > {
         UserService.loadClientsFromFile();
         UserService.loadManagersFromFile();
         UserService.loadStoresFromFile();
+        UserService.loadOrdersFromFile();
     }
 
     @FXML
