@@ -43,6 +43,8 @@ public class LoginController< choice > {
         return choice;
     }
 
+
+
     @FXML
     public void handleRegisterButtonAction() throws IOException {
         try {

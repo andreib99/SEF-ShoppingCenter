@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 import static ShoppingCenter.Services.UserService.stores;
@@ -56,13 +57,14 @@ public class AddProductController {
             promotion = price;
         }
         Product p = new Product(name,Integer.valueOf(quantity),Double.valueOf(price),Double.valueOf(promotion));
+
         String store = UserService.getCurrent_store();
-        System.out.println(store);
         for (Store st : stores) {
             if (st.getName().equals(store)) {
                 try {
                     checkPrductDoesNotAlreadyExist(store,p.getName());
                     st.products.add(p);
+                    st.products.sort(Comparator.comparing(Product::getName));
                     UserService.persistStores();
                     Message.setText("Successfully modified!");
 

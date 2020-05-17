@@ -30,7 +30,6 @@ public class RemoveProductController {
             if (store.getName().equals(UserService.getCurrent_store())) {
                 for (Product product : store.getProducts()) {
                     temp.add(product.getName());
-                    System.out.println(product.getName());
                 }
             }
         }

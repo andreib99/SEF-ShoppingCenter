@@ -119,12 +119,14 @@ public class UserService {
     }
     public static void modifyClient(String username, String password, String name, String number, String address) throws UsernameAlreadyExistsException, PasswordNeededException {
         // verify if the username is available
-      checkClientDoesNotAlreadyExist(username);
         if(password.isEmpty())
         {
             throw new PasswordNeededException();
         }
-
+        if(!username.equals(current_client))
+        {
+            checkClientDoesNotAlreadyExist(username);
+        }
         //make the modification
         for (Client client : clients) {
             if (Objects.equals(current_client, client.getUsername())) {
