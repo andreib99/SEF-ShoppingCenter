@@ -117,7 +117,7 @@ public class BuyProductController {
               String name = choiceBox.getValue();
               String quantity = quantityField.getText();
               int quantity_int = 0;
-              if(validate_quantity(quantity))
+              if(!validate_quantity(quantity))
               {
                   Message.setText("Enter a number!");
                   return;

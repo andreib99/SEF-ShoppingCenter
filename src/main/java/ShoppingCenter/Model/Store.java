@@ -17,12 +17,7 @@ public class Store {
     {
         this.name = name;
         products = new ArrayList<>();
-        Product p = new Product("trousers", 10, 50.78, 0.0);
-        products.add(p);
-        Product p1 = new Product("hat", 20, 20.99, 20.0);
-        products.add(p1);
-        products.sort(Comparator.comparing(Product::getName));
-        }
+    }
 
     public ArrayList<Product> getProducts() {
         return products;

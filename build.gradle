@@ -21,10 +21,10 @@ test {
 
 jar {
     manifest {
-        attributes "Main-Class": "org.loose.fis.registration.example.Main"
+        attributes "Main-Class": "ShoppingCenter.Main"
     }
 
-    archiveName = 'simple-registration-example.jar'
+    archiveName = 'ShoppingCenter.jar'
     from {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }

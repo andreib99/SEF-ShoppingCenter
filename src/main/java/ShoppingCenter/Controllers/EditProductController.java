@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 import static ShoppingCenter.Services.UserService.stores;
@@ -83,6 +84,7 @@ public class EditProductController {
                           p.setQuantity(Integer.valueOf(quantity));
                         }
                             UserService.persistStores();
+                            st.products.sort(Comparator.comparing(Product::getName));
                             Message.setText("Successfully modified!");
                     }
 
@@ -90,7 +92,6 @@ public class EditProductController {
 
             }
         }
-
         if(found == 0)
         {
             Message.setText("This product don't exist in the store!");

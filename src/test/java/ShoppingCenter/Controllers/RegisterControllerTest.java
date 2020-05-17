@@ -1,6 +1,6 @@
 package ShoppingCenter.Controllers;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import static junit.framework.TestCase.assertTrue;
 

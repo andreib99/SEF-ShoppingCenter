@@ -28,4 +28,18 @@
     "quantity" : "1"
   } ],
   "client_name" : "Mircea"
+}, {
+  "date" : "17-05-2020 11:09:22",
+  "store_name" : "Puma",
+  "bought_products" : [ {
+    "name" : "Gloves",
+    "quantity" : "4"
+  }, {
+    "name" : "Hat",
+    "quantity" : "4"
+  }, {
+    "name" : "Skirt",
+    "quantity" : "4"
+  } ],
+  "client_name" : "Ion"
 } ]
