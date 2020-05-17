@@ -1,0 +1,14 @@
+[ {
+  "name" : "Zara",
+  "products" : [ {
+    "name" : "Hat",
+    "quantity" : 10,
+    "price" : 40.0,
+    "promotion" : 20.0
+  }, {
+    "name" : "Shoes",
+    "quantity" : 6,
+    "price" : 100.0,
+    "promotion" : 0.0
+  } ]
+} ]
