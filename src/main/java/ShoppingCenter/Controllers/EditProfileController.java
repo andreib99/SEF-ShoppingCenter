@@ -35,6 +35,8 @@ public class EditProfileController {
     @FXML
     private TextField usernameField;
 
+
+
     public void initialize() {
         if(UserService.getCurrent_client().equals(""))
         {

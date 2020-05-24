@@ -1,6 +1,8 @@
 package ShoppingCenter.Controllers;
 
 import ShoppingCenter.Exceptions.StoreAlreadyExistsException;
+import ShoppingCenter.Exceptions.UsernameAlreadyExistsException;
+import ShoppingCenter.Services.UserService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,12 +10,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import ShoppingCenter.Exceptions.UsernameAlreadyExistsException;
-import ShoppingCenter.Services.UserService;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.Objects;
 
 import static ShoppingCenter.Services.UserService.*;
@@ -106,7 +105,7 @@ public class RegisterController {
 
     public boolean validate_password(String password)
     {
-        if(password.length() > 3)
+        if(password.length() >= 8)
         {
             return true;
         }

@@ -1,7 +1,6 @@
 package ShoppingCenter.Controllers;
 
 
-import ShoppingCenter.Exceptions.ProductAlreadyExistsException;
 import ShoppingCenter.Model.Product;
 import ShoppingCenter.Model.Store;
 import ShoppingCenter.Services.UserService;
@@ -61,30 +60,28 @@ public class AddProductController {
         String store = UserService.getCurrent_store();
         for (Store st : stores) {
             if (st.getName().equals(store)) {
-                try {
-                    checkPrductDoesNotAlreadyExist(store,p.getName());
+                checkProductDoesNotAlreadyExist(store,p.getName());
                     st.products.add(p);
                     st.products.sort(Comparator.comparing(Product::getName));
                     UserService.persistStores();
                     Message.setText("Successfully modified!");
 
-                }catch (ProductAlreadyExistsException e){
-                    Message.setText(e.getMessage());
                 }
-                }
-            }
+        }
     }
-    private static void checkPrductDoesNotAlreadyExist(String store,String product) throws ProductAlreadyExistsException {
+    public boolean checkProductDoesNotAlreadyExist(String store,String product){
         for (Store st : stores) {
             if (Objects.equals(store, st.getName()))
             {
                 for(Product p : st.getProducts())
                 {
-                    if(Objects.equals(p.getName(),product))
-                        throw new ProductAlreadyExistsException(product);
+                    if(Objects.equals(p.getName(),product)) {
+                        return false;
+                    }
                 }
             }
         }
+        return true;
     }
     public void handleBackToStoreAction()
     {
